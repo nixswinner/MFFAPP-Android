@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add A service"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        />
+
+   <RelativeLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content">
+       <TextView
+           android:id="@+id/txtsp"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Choose the Route::"
+           android:layout_gravity="center"
+           android:textSize="18sp"
+           android:textStyle="bold"
+           />
+       <Spinner
+           android:id="@+id/spinner"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:spinnerMode="dropdown"
+           android:layout_toRightOf="@+id/txtsp"
+           android:textColor="#ccc8c8"
+           />
+   </RelativeLayout>
+
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/login_input_layout_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/input_pass_capacity"
+            android:textColor="#000000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="Passenger Capacity" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_cost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/input_layout_cost"
+            android:textColor="#000000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="Cost" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#4388dc"
+        android:text="Add Service"
+        android:textColor="@android:color/white" />
+
+
+
+</LinearLayout>
