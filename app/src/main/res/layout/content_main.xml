@@ -16,40 +16,38 @@
       tools:layout_editor_absoluteX="8dp"
       tools:ignore="MissingConstraints">
 
-      <Button
-          android:id="@+id/join"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="Join Us"
-          tools:layout_editor_absoluteX="148dp"
-          tools:layout_editor_absoluteY="362dp"
-          android:layout_marginBottom="95dp"
-          android:layout_alignParentBottom="true"
-          android:layout_centerHorizontal="true" />
+
 
       <TextView
           android:id="@+id/textView"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="MFFAPP"
-          tools:layout_editor_absoluteX="157dp"
-          tools:layout_editor_absoluteY="16dp"
-          android:layout_marginTop="12dp"
-          android:layout_alignParentTop="true"
-          android:layout_alignLeft="@+id/join"
-          android:layout_alignStart="@+id/join" />
+          android:layout_width="match_parent"
+          android:layout_height="200dp"
+          android:text="Welcome to MFFAPP"
+          android:gravity="center"
+          android:textSize="25sp"
+          android:textStyle="bold"
 
-      <Button
-          android:id="@+id/login"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="Login"
-          tools:layout_editor_absoluteX="146dp"
-          tools:layout_editor_absoluteY="423dp"
-          android:layout_alignTop="@+id/join"
-          android:layout_alignLeft="@+id/join"
-          android:layout_alignStart="@+id/join"
-          android:layout_marginTop="39dp" />
+           />
+
+
+          <Button
+              android:id="@+id/btn_login"
+              android:layout_below="@+id/textView"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="20dp"
+              android:background="@drawable/rect"
+              android:text="Login"
+              android:textColor="@android:color/white" />
+          <Button
+              android:id="@+id/btn_register"
+              android:layout_below="@+id/btn_login"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="20dp"
+              android:background="@drawable/rect"
+              android:text="Join Us"
+              android:textColor="@android:color/white" />
       <Spinner
           android:id="@+id/spinner"
           android:layout_width="wrap_content"

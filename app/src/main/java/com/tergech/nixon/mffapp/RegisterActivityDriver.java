@@ -25,20 +25,20 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivityDriver extends AppCompatActivity {
 
     private static final String TAG = "RegisterActivity";
     private static final String URL_FOR_REGISTRATION = "http://nixontonui.net16.net/fooddelivery/register.php";
     ProgressDialog progressDialog;
 
-    private EditText signupInputName, signupInputPhoneNumber, signupInputPassword, signupInputPassAgain,signupInputEmail;
+    private EditText signupInputName, signupInputPhoneNumber, signupInputPassword, signupInputPassAgain,signupInputIDNO,signUpInputEmail;
     private Button btnSignUp;
     private Button btnLinkLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_register_driver);
 
         // Progress dialog
         progressDialog = new ProgressDialog(this);
@@ -46,40 +46,23 @@ public class RegisterActivity extends AppCompatActivity {
 
         signupInputName = (EditText) findViewById(R.id.signup_input_name);
         signupInputPhoneNumber = (EditText) findViewById(R.id.signup_input_phone);
-        signupInputEmail=(EditText)findViewById(R.id.signup_input_email);
+        signUpInputEmail=(EditText)findViewById(R.id.signup_input_email);
         signupInputPassword = (EditText) findViewById(R.id.signup_input_password);
         signupInputPassAgain = (EditText) findViewById(R.id.signup_input_password_again);
+        signupInputIDNO=(EditText)findViewById(R.id.signup_input_id_number);
 
         btnSignUp = (Button) findViewById(R.id.btn_signup);
         btnLinkLogin = (Button) findViewById(R.id.btn_link_login);
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                   // submitForm();
-                    //delaying
-                try {
-                    final ProgressDialog progressDialog = new ProgressDialog(RegisterActivity.this);
-                    progressDialog.setIndeterminate(true);
-                    progressDialog.setMessage("Registering you ...");
-                    progressDialog.show();
-                    new android.os.Handler().postDelayed(
-                            new Runnable() {
-                                public void run() {
-                                    progressDialog.dismiss();
-                                    Intent i = new Intent(getApplicationContext(),LoginActivity.class);
-                                    startActivity(i);
-
-                                }
-                            }, 3000);
-                }
-                catch (Exception ex)
+                if(InternetConnection.checkConnection(RegisterActivityDriver.this))
                 {
-                    Toast.makeText(getApplicationContext(),"Error "+ex,Toast.LENGTH_LONG).show();
+                    submitForm();
                 }
-
-
-
+                else{
+                    Toast.makeText(getApplicationContext(), "Please enable your Internet connection!!", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -99,14 +82,16 @@ public class RegisterActivity extends AppCompatActivity {
 
         registerUser(signupInputName.getText().toString(),
                 signupInputPhoneNumber.getText().toString(),
-                signupInputEmail.getText().toString(),
+                signUpInputEmail.getText().toString(),
+                signupInputIDNO.getText().toString(),
                 signupInputPassword.getText().toString()
+
                 );
         //saving phone number
         SaveSharedPreference.setPhoneNumber(getApplicationContext(),signupInputPhoneNumber.getText().toString());
     }
 
-    private void registerUser(final String name,  final String phone_number,final String email, final String password) {
+    private void registerUser(final String name,  final String phone_number,final String Email, final String IdNo, final String password) {
         // Tag used to cancel the request
         String cancel_req_tag = "register";
 
@@ -129,9 +114,11 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Hi " + user +", You are successfully Added!", Toast.LENGTH_SHORT).show();
 
                         // Launch login activity
+
                         Intent intent = new Intent(
-                                RegisterActivity.this,
+                                RegisterActivityDriver.this,
                                 LoginActivity.class);
+                        intent.putExtra("who","D");
                         startActivity(intent);
                         finish();
                     } else {
@@ -161,7 +148,8 @@ public class RegisterActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("name", name);
                 params.put("phone_number", phone_number);
-                params.put("email", email);
+                params.put("id_no", IdNo);
+                params.put("email", Email);
                 params.put("password_hash", password);
                 return params;
             }

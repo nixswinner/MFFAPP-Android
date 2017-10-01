@@ -28,11 +28,13 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
+    //api url address
     private static final String URL_FOR_LOGIN = "http://nixontonui.net16.net/fooddelivery/login.php";
     ProgressDialog progressDialog;
     private EditText loginInputEmail, loginInputPassword;
     private Button btnlogin;
     private Button btnLinkSignup;
+    private  String who=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,20 +47,36 @@ public class LoginActivity extends AppCompatActivity {
         // Progress dialog
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
+       /* Intent intent=getIntent();
+        Bundle bundle=intent.getExtras();
+        who=bundle.getString("who");*/
+
 
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(InternetConnection.checkConnection(getApplicationContext()))
+               /* if(InternetConnection.checkConnection(getApplicationContext()))
                 {
-                    loginUser(loginInputEmail.getText().toString(),
-                            loginInputPassword.getText().toString());
+                    *//*loginUser(loginInputEmail.getText().toString(),
+                            loginInputPassword.getText().toString());*//*
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "Please enable your Internet connection!!", Toast.LENGTH_SHORT).show();
-                }
+                }*/
 
+                final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
+                progressDialog.setIndeterminate(true);
+                progressDialog.setMessage("Login you in ...");
+                progressDialog.show();
+                new android.os.Handler().postDelayed(
+                        new Runnable() {
+                            public void run() {
+                                progressDialog.dismiss();
+                                Intent i = new Intent(getApplicationContext(),driver.class);
+                                startActivity(i);
 
+                            }
+                        }, 3000);
 
             }
         });
@@ -123,8 +141,10 @@ public class LoginActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 // Posting params to login url
                 Map<String, String> params = new HashMap<String, String>();
+
                 params.put("email", email);
                 params.put("password", password);
+                params.put("who", who);
                 return params;
             }
         };

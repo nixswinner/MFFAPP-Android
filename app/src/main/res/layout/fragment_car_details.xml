@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="My Car Details"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        />
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="500dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:id="@+id/rl"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/login_input_layout_pass"
+                        android:layout_width="match_parent"
+                        android:layout_below="@+id/txtsp"
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:id="@+id/input_car_type"
+                            android:textColor="#000000"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:hint=" Car Type" />
+                    </android.support.design.widget.TextInputLayout>
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/input_layout_cost"
+                        android:layout_width="match_parent"
+                        android:layout_below="@+id/login_input_layout_pass"
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:id="@+id/input_car_no_plate"
+                            android:textColor="#000000"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:hint="Car No. Plate" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/input_layout_date"
+                        android:layout_width="match_parent"
+                        android:layout_below="@+id/input_layout_cost"
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:id="@+id/input_car_color"
+                            android:textColor="#000000"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:hint="Car Color" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/input_layout_time"
+                        android:layout_width="match_parent"
+                        android:layout_below="@+id/input_layout_date"
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:id="@+id/input_layout_time"
+                            android:textColor="#000000"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:hint="Car Capacity" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <!--   <Button
+                        android:layout_below="@+id/input_layout_cost"
+                        android:id="@+id/btn_date"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:background="#ffffff"
+                        android:textColor="#000000"
+                        android:text="Choose Date"
+                         />
+                    <Button
+                        android:layout_below="@+id/btn_date"
+                        android:id="@+id/btn_time"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:background="#ffffff"
+                        android:textColor="#000000"
+                        android:text="Choose Time"
+                       />-->
+
+                    <Button
+                        android:layout_below="@+id/input_layout_time"
+                        android:id="@+id/btn_save"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:background="#4388dc"
+                        android:text="Save "
+                        android:textColor="@android:color/white" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+
+</LinearLayout>
