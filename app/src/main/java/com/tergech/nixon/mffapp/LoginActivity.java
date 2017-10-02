@@ -3,12 +3,16 @@ package com.tergech.nixon.mffapp;
 /**
  * Created by Tonui on 6/25/2017.
  */
+
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -18,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
     //api url address
-    private static final String URL_FOR_LOGIN = "http://nixontonui.net16.net/fooddelivery/login.php";
+    private static final String URL_FOR_LOGIN = "http://192.168.137.1/Api/MFFAPP/public/index.php/api/loginUser";
     ProgressDialog progressDialog;
     private EditText loginInputEmail, loginInputPassword;
     private Button btnlogin;
@@ -47,9 +52,10 @@ public class LoginActivity extends AppCompatActivity {
         // Progress dialog
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
-       /* Intent intent=getIntent();
+        Intent intent=getIntent();
         Bundle bundle=intent.getExtras();
-        who=bundle.getString("who");*/
+        who=bundle.getString("name");
+
 
 
         btnlogin.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Please enable your Internet connection!!", Toast.LENGTH_SHORT).show();
                 }*/
 
-                final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
+               /* final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
                 progressDialog.setIndeterminate(true);
                 progressDialog.setMessage("Login you in ...");
                 progressDialog.show();
@@ -76,7 +82,9 @@ public class LoginActivity extends AppCompatActivity {
                                 startActivity(i);
 
                             }
-                        }, 3000);
+                        }, 3000);*/
+                loginUser(loginInputEmail.getText().toString(),
+                        loginInputPassword.getText().toString());
 
             }
         });
@@ -84,14 +92,130 @@ public class LoginActivity extends AppCompatActivity {
         btnLinkSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), RegisterActivity.class);
-                startActivity(i);
+                AlertDialog.Builder builderSingle = new AlertDialog.Builder(LoginActivity.this);
+                // builderSingle.setIcon(R.drawable.green_tick_add);
+                builderSingle.setTitle("Join as..");
+
+                final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(LoginActivity.this, android.R.layout.select_dialog_item);
+                arrayAdapter.add("A Driver");
+                arrayAdapter.add("A Passenger");
+
+                builderSingle.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String strName = arrayAdapter.getItem(which);
+                        switch (strName)
+                        {
+                            case "A Driver":
+                                Intent intent=new Intent(LoginActivity.this,RegisterActivityDriver.class);
+                                startActivity(intent);
+                                break;
+                            case "A Passenger":
+                                Intent intent1=new Intent(LoginActivity.this,RegisterActivity.class);
+                                startActivity(intent1);
+                                break;
+                        }
+
+                    }
+                });
+                builderSingle.show();
 
             }
         });
     }
 
     private void loginUser( final String email, final String password) {
+        // Tag used to cancel the request
+        String cancel_req_tag = "login";
+        progressDialog.setMessage("Logging you in...");
+        showDialog();
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                URL_FOR_LOGIN, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Register Response: " + response.toString());
+                hideDialog();
+                try {
+                    String  user_id="",name="";
+                    JSONObject jObj = new JSONObject(response);
+                    // Getting JSON Array node
+                    JSONArray contacts = jObj.getJSONArray("result");
+
+                    // looping through All Contacts
+                    for (int i = 0; i < contacts.length(); i++) {
+                        JSONObject c = contacts.getJSONObject(i);
+
+                        user_id = c.getString("id");
+                        name = c.getString("name");
+
+                    }
+
+                    Toast.makeText(getApplicationContext(),
+                            "Welcome "+name, Toast.LENGTH_LONG).show();
+
+                    // Launch User activity
+                   // SaveSharedPreference.setUserID(getApplicationContext(),user_id);
+                       /* Intent intent = new Intent(
+                                LoginActivity.this,
+                                MainActivity.class);
+                        intent.putExtra("username", usertype);
+                        startActivity(intent);
+                        finish();*/
+                       switch (who)
+                       {
+                           case "D":
+                               Intent intent=new Intent(getApplicationContext(),driver.class);
+                               startActivity(intent);
+                               break;
+                           default:
+                               Intent intent1=new Intent(getApplicationContext(),passenger.class);
+                               startActivity(intent1);
+                               break;
+                       }
+                    Toast.makeText(getApplicationContext(),
+                            "Welcome "+name, Toast.LENGTH_LONG).show();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(),
+                            "Error Loggin Check your details "+e, Toast.LENGTH_LONG).show();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Login Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+                hideDialog();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting params to login url
+                Map<String, String> params = new HashMap<String, String>();
+
+                params.put("email", email);
+                params.put("password_hash", password);
+                params.put("who", who);
+                return params;
+            }
+        };
+        // Adding request to request queue
+        // requestQueue.add(strReq);
+        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq,cancel_req_tag);
+    }
+
+    /*private void loginUser( final String email, final String password) {
         // Tag used to cancel the request
         String cancel_req_tag = "login";
         progressDialog.setMessage("Logging you in...");
@@ -151,7 +275,7 @@ public class LoginActivity extends AppCompatActivity {
         // Adding request to request queue
         // requestQueue.add(strReq);
         AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq,cancel_req_tag);
-    }
+    }*/
 
     private void showDialog() {
         if (!progressDialog.isShowing())

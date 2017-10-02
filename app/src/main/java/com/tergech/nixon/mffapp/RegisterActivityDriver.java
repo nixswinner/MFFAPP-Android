@@ -28,7 +28,7 @@ import java.util.Map;
 public class RegisterActivityDriver extends AppCompatActivity {
 
     private static final String TAG = "RegisterActivity";
-    private static final String URL_FOR_REGISTRATION = "http://nixontonui.net16.net/fooddelivery/register.php";
+    private static final String URL_FOR_REGISTRATION = "http://192.168.137.1/Api/MFFAPP/public/index.php/api/registerDrivers";
     ProgressDialog progressDialog;
 
     private EditText signupInputName, signupInputPhoneNumber, signupInputPassword, signupInputPassAgain,signupInputIDNO,signUpInputEmail;
@@ -56,13 +56,20 @@ public class RegisterActivityDriver extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(InternetConnection.checkConnection(RegisterActivityDriver.this))
+               /* if(InternetConnection.checkConnection(RegisterActivityDriver.this))
                 {
                     submitForm();
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "Please enable your Internet connection!!", Toast.LENGTH_SHORT).show();
-                }
+                }*/
+                registerUser(signupInputName.getText().toString(),
+                        signupInputPhoneNumber.getText().toString(),
+                        signUpInputEmail.getText().toString(),
+                        signupInputIDNO.getText().toString(),
+                        signupInputPassword.getText().toString()
+
+                );
 
             }
         });
@@ -76,7 +83,71 @@ public class RegisterActivityDriver extends AppCompatActivity {
         });
     }
 
-    private void submitForm() {
+
+    private void registerUser(final String Name,  final String Phone,final String email,final String IDNO, final String password) {
+        // Tag used to cancel the request
+        String cancel_req_tag = "register";
+        progressDialog.setMessage("Adding you ...");
+        showDialog();
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                URL_FOR_REGISTRATION, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Register Response: " + response.toString());
+                Toast.makeText(getApplicationContext(), "Response "+response, Toast.LENGTH_SHORT).show();
+                hideDialog();
+                //Toast.makeText(getApplicationContext(), "Response "+response.toString(), Toast.LENGTH_LONG).show();
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+
+
+                   // String user = jObj.getJSONObject("user").getString("name");
+                   // Toast.makeText(getApplicationContext(), "Hi " + user +", You are successfully Registered!", Toast.LENGTH_SHORT).show();
+
+                        // Launch login activity
+                        Intent intent = new Intent(
+                                RegisterActivityDriver.this,
+                                driver.class);
+                                intent.putExtra("status","0");
+                        startActivity(intent);
+                        finish();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(),
+                            "Error Occured Try again"+e, Toast.LENGTH_LONG).show();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Registration Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+                hideDialog();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting params to register url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("name", Name);
+                params.put("phone", Phone);
+                params.put("id_no", IDNO);
+                params.put("email", email);
+                params.put("password_hash", password);
+                return params;
+            }
+        };
+        // Adding request to request queue
+        //requestQueue.add(strReq);
+        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq, cancel_req_tag);
+    }
+   /* private void submitForm() {
 
 
 
@@ -111,7 +182,7 @@ public class RegisterActivityDriver extends AppCompatActivity {
 
                     if (!error) {
                         String user = jObj.getJSONObject("user").getString("name");
-                        Toast.makeText(getApplicationContext(), "Hi " + user +", You are successfully Added!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Hi " + user +", You successfully joined us!", Toast.LENGTH_SHORT).show();
 
                         // Launch login activity
 
@@ -157,7 +228,7 @@ public class RegisterActivityDriver extends AppCompatActivity {
         // Adding request to request queue
         //requestQueue.add(strReq);
        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq, cancel_req_tag);
-    }
+    }*/
 
     private void showDialog() {
         if (!progressDialog.isShowing())

@@ -28,7 +28,7 @@ import java.util.Map;
 public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG = "RegisterActivity";
-    private static final String URL_FOR_REGISTRATION = "http://nixontonui.net16.net/fooddelivery/register.php";
+    private static final String URL_FOR_REGISTRATION = "http://192.168.137.1/Api/MFFAPP/public/index.php/api/registerPass";
     ProgressDialog progressDialog;
 
     private EditText signupInputName, signupInputPhoneNumber, signupInputPassword, signupInputPassAgain,signupInputEmail;
@@ -59,7 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
                    // submitForm();
                     //delaying
                 try {
-                    final ProgressDialog progressDialog = new ProgressDialog(RegisterActivity.this);
+                  /*  final ProgressDialog progressDialog = new ProgressDialog(RegisterActivity.this);
                     progressDialog.setIndeterminate(true);
                     progressDialog.setMessage("Registering you ...");
                     progressDialog.show();
@@ -71,11 +71,17 @@ public class RegisterActivity extends AppCompatActivity {
                                     startActivity(i);
 
                                 }
-                            }, 3000);
+                            }, 3000);*/
+                    registerUser(signupInputName.getText().toString(),
+                            signupInputPhoneNumber.getText().toString(),
+                            signupInputEmail.getText().toString(),
+                            signupInputPassword.getText().toString()
+
+                    );
                 }
                 catch (Exception ex)
                 {
-                    Toast.makeText(getApplicationContext(),"Error "+ex,Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(),"Error "+ex,Toast.LENGTH_LONG).show();
                 }
 
 
@@ -93,23 +99,9 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void submitForm() {
-
-
-
-        registerUser(signupInputName.getText().toString(),
-                signupInputPhoneNumber.getText().toString(),
-                signupInputEmail.getText().toString(),
-                signupInputPassword.getText().toString()
-                );
-        //saving phone number
-        SaveSharedPreference.setPhoneNumber(getApplicationContext(),signupInputPhoneNumber.getText().toString());
-    }
-
-    private void registerUser(final String name,  final String phone_number,final String email, final String password) {
+    private void registerUser(final String Name,  final String Phone,final String email, final String password) {
         // Tag used to cancel the request
         String cancel_req_tag = "register";
-
         progressDialog.setMessage("Adding you ...");
         showDialog();
         StringRequest strReq = new StringRequest(Request.Method.POST,
@@ -118,30 +110,29 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "Register Response: " + response.toString());
+                Toast.makeText(getApplicationContext(), "Response "+response, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Hi you have successfully joined us!", Toast.LENGTH_SHORT).show();
                 hideDialog();
                 //Toast.makeText(getApplicationContext(), "Response "+response.toString(), Toast.LENGTH_LONG).show();
                 try {
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
 
-                    if (!error) {
-                        String user = jObj.getJSONObject("user").getString("name");
-                        Toast.makeText(getApplicationContext(), "Hi " + user +", You are successfully Added!", Toast.LENGTH_SHORT).show();
 
-                        // Launch login activity
+                    // String user = jObj.getJSONObject("user").getString("name");
+                    // Toast.makeText(getApplicationContext(), "Hi " + user +", You are successfully Registered!", Toast.LENGTH_SHORT).show();
+
+                        /*// Launch login activity
                         Intent intent = new Intent(
                                 RegisterActivity.this,
                                 LoginActivity.class);
                         startActivity(intent);
-                        finish();
-                    } else {
+                        finish();*/
 
-                        String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(getApplicationContext(),
-                                errorMsg, Toast.LENGTH_LONG).show();
-                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                   /* Toast.makeText(getApplicationContext(),
+                            "Error Occured Try again"+e, Toast.LENGTH_LONG).show();*/
                 }
 
             }
@@ -159,8 +150,8 @@ public class RegisterActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 // Posting params to register url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("name", name);
-                params.put("phone_number", phone_number);
+                params.put("name", Name);
+                params.put("phone", Phone);
                 params.put("email", email);
                 params.put("password_hash", password);
                 return params;
@@ -168,7 +159,7 @@ public class RegisterActivity extends AppCompatActivity {
         };
         // Adding request to request queue
         //requestQueue.add(strReq);
-       AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq, cancel_req_tag);
+        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq, cancel_req_tag);
     }
 
     private void showDialog() {

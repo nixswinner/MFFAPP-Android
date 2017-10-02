@@ -26,8 +26,43 @@ public class MainActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this,LoginActivity.class);
-                startActivity(intent);
+                AlertDialog.Builder builderSingle = new AlertDialog.Builder(MainActivity.this);
+                // builderSingle.setIcon(R.drawable.green_tick_add);
+                builderSingle.setTitle("Login as..");
+
+                final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.select_dialog_item);
+                arrayAdapter.add("A Driver");
+                arrayAdapter.add("A Passenger");
+
+                builderSingle.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String strName = arrayAdapter.getItem(which);
+                        switch (strName)
+                        {
+                            case "A Driver":
+                                Intent intent=new Intent(MainActivity.this,LoginActivity.class);
+                                intent.putExtra("name","D");
+                                startActivity(intent);
+                                break;
+                            case "A Passenger":
+                                Intent intent1=new Intent(MainActivity.this,LoginActivity.class);
+                                intent1.putExtra("name","");
+                                startActivity(intent1);
+                                startActivity(intent1);
+                                break;
+                        }
+
+                    }
+                });
+                builderSingle.show();
 
             }
         });
