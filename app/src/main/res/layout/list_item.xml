@@ -5,21 +5,37 @@
 
 
 
-
     <TextView
         android:id="@+id/routeName"
-        android:layout_marginLeft="50dp"
+        android:layout_marginLeft="52dp"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:paddingBottom="2dip"
         android:paddingTop="6dip"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="16sp"
-        android:text="Route"
+        android:text="RouteL"
         android:textStyle="bold"
+        android:layout_marginStart="52dp"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="50dp" />
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="2dip"
+        android:paddingTop="6dip"
+        android:text="Route:"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/textView11"
+        android:layout_toStartOf="@+id/textView11"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp" />
 
     <TextView
         android:id="@+id/cost"
@@ -27,35 +43,65 @@
         android:layout_height="wrap_content"
         android:paddingBottom="2dip"
         android:paddingTop="6dip"
-        android:text=" Cost"
+        android:text=" CostC"
         android:textColor="@color/colorAccent"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:layout_alignBaseline="@+id/routeName"
-        android:layout_alignBottom="@+id/routeName"
+        android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/routeName"
         android:layout_toEndOf="@+id/routeName" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="2dip"
+        android:paddingTop="6dip"
+        android:text=" Cost:"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/textView9"
+        android:layout_toEndOf="@+id/textView9" />
+
     <TextView
         android:id="@+id/txtDate"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:paddingBottom="2dip"
         android:paddingTop="6dip"
-        android:text=" Date"
+        android:text="DateD"
         android:textColor="@color/colorAccent"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:layout_marginTop="16dp"
-        android:layout_below="@+id/txtTime"
+        android:layout_alignBaseline="@+id/textView10"
+        android:layout_alignBottom="@+id/textView10"
         android:layout_alignLeft="@+id/txtTime"
         android:layout_alignStart="@+id/txtTime" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="2dip"
+        android:paddingTop="6dip"
+        android:text=" Date:"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/txtTime"
+        android:layout_toLeftOf="@+id/textView11"
+        android:layout_toStartOf="@+id/textView11" />
+
     <TextView
         android:id="@+id/txtTime"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:paddingBottom="2dip"
         android:paddingTop="6dip"
-        android:text=" Time"
+        android:text=" TimeT"
         android:textColor="@color/colorAccent"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -63,5 +109,19 @@
         android:layout_below="@+id/routeName"
         android:layout_alignLeft="@+id/routeName"
         android:layout_alignStart="@+id/routeName" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="2dip"
+        android:paddingTop="6dip"
+        android:text="Time:"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_alignTop="@+id/txtTime"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
