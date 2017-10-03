@@ -159,10 +159,10 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     Toast.makeText(getApplicationContext(),
-                            "Welcome "+name, Toast.LENGTH_LONG).show();
+                            "Welcome "+name, Toast.LENGTH_SHORT).show();
 
                     // Launch User activity
-                   // SaveSharedPreference.setUserID(getApplicationContext(),user_id);
+
                        /* Intent intent = new Intent(
                                 LoginActivity.this,
                                 MainActivity.class);
@@ -172,10 +172,18 @@ public class LoginActivity extends AppCompatActivity {
                        switch (who)
                        {
                            case "D":
+                               //set driver id
+                               SaveSharedPreference.setDriverid(getApplicationContext(),user_id);
+                              /* Toast.makeText(getApplicationContext(),
+                                       "Driver ID "+user_id, Toast.LENGTH_SHORT).show();*/
                                Intent intent=new Intent(getApplicationContext(),driver.class);
                                startActivity(intent);
                                break;
                            default:
+                               //set passenger id
+                               SaveSharedPreference.setPassid(getApplicationContext(),user_id);
+                             /*  Toast.makeText(getApplicationContext(),
+                                       "Pass ID "+user_id, Toast.LENGTH_SHORT).show();*/
                                Intent intent1=new Intent(getApplicationContext(),passenger.class);
                                startActivity(intent1);
                                break;

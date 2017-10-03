@@ -26,7 +26,7 @@
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
-                    <TextView
+              <!--      <TextView
                         android:id="@+id/txtsp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -54,12 +54,24 @@
                         android:textSize="18sp"
                         android:textStyle="bold"
 
-                        />
+                        />-->
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/login_input_layout_pass1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:id="@+id/input_route"
+                            android:textColor="#000000"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:hint="Route -(Nyeri-Nairobi)" />
+                    </android.support.design.widget.TextInputLayout>
 
                    <android.support.design.widget.TextInputLayout
                        android:id="@+id/login_input_layout_pass"
                        android:layout_width="match_parent"
-                       android:layout_below="@+id/txtsp"
+                       android:layout_below="@+id/login_input_layout_pass1"
                        android:layout_height="wrap_content">
                        <EditText
                            android:id="@+id/input_pass_capacity"
@@ -75,7 +87,7 @@
                        android:layout_below="@+id/login_input_layout_pass"
                        android:layout_height="wrap_content">
                        <EditText
-                           android:id="@+id/input_layout_cost"
+                           android:id="@+id/input_cost"
                            android:textColor="#000000"
                            android:layout_width="match_parent"
                            android:layout_height="wrap_content"
@@ -89,7 +101,7 @@
                         android:layout_below="@+id/input_layout_cost"
                         android:layout_height="wrap_content">
                         <EditText
-                            android:id="@+id/input_layout_date"
+                            android:id="@+id/input_date"
                             android:textColor="#000000"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -103,7 +115,7 @@
                         android:layout_below="@+id/input_layout_date"
                         android:layout_height="wrap_content">
                         <EditText
-                            android:id="@+id/input_layout_time"
+                            android:id="@+id/input_time"
                             android:textColor="#000000"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -138,7 +150,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:background="#4388dc"
+                        android:background="@drawable/rect"
                         android:text="Add Service"
                         android:textColor="@android:color/white" />
                </RelativeLayout>

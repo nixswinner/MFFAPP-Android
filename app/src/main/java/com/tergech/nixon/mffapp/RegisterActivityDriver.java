@@ -109,7 +109,7 @@ public class RegisterActivityDriver extends AppCompatActivity {
                         // Launch login activity
                         Intent intent = new Intent(
                                 RegisterActivityDriver.this,
-                                driver.class);
+                                LoginActivity.class);
                                 intent.putExtra("status","0");
                         startActivity(intent);
                         finish();

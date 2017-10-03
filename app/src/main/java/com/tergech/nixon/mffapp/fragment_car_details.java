@@ -1,6 +1,7 @@
 package com.tergech.nixon.mffapp;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -82,7 +83,7 @@ public class fragment_car_details extends Fragment {
     private void postData() {
 
 
-
+         driver_id=SaveSharedPreference.getDriverID(getActivity());
         post_car_details(driver_id,car_type,car_no_plate,car_color);
         //saving phone number
         //SaveSharedPreference.setPhoneNumber(getActivity(),signupInputPhoneNumber.getText().toString());
@@ -107,14 +108,14 @@ public class fragment_car_details extends Fragment {
 
                     if (!error) {
                         String user = jObj.getJSONObject("user").getString("name");
-                        Toast.makeText(getActivity(), "Hi " + user +", You are successfully Added!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Your car details successfully Added!", Toast.LENGTH_SHORT).show();
 
                         // Launch login activity
-                        /*Intent intent = new Intent(
-                                RegisterActivity.this,
+                        Intent intent = new Intent(
+                                getActivity(),
                                 LoginActivity.class);
                         startActivity(intent);
-                        finish();*/
+                        getActivity().finish();
                     } else {
 
                         String errorMsg = jObj.getString("error_msg");
