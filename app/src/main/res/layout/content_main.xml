@@ -20,12 +20,14 @@
 
       <TextView
           android:id="@+id/textView"
+          android:layout_marginTop="20dp"
           android:layout_width="match_parent"
           android:layout_height="200dp"
-          android:text="Welcome to MFFAPP"
+          android:text="Welcome to Meet From Far"
           android:gravity="center"
-          android:textSize="25sp"
+          android:textSize="40sp"
           android:textStyle="bold"
+
 
            />
 
@@ -50,11 +52,19 @@
               android:textColor="@android:color/white" />
       <Spinner
           android:id="@+id/spinner"
+          android:visibility="gone"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:spinnerMode="dialog"
           android:textColor="#ccc8c8"
           />
+      <TextView
+          android:layout_marginTop="20dp"
+          android:text="MffApp Enables you to find a convinient ride to your destination as a passenger and as a private car driver you get to have a company and rather reduce the cost of fuel  "
+          android:gravity="center"
+          android:layout_below="@id/btn_register"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content" />
 
   </RelativeLayout>
 

@@ -27,17 +27,26 @@
 
                         <EditText
                             android:id="@+id/search"
-                            android:layout_width="290dp"
+                            android:layout_width="200dp"
                             android:layout_height="wrap_content"
                             android:hint="Route (e.g Nyeri-Nairobi)"
                             android:inputType="text"
+                            android:visibility="gone"
                             android:textColor="#000000" />
+                        <Spinner
+                            android:id="@+id/spinner_search"
+                            android:layout_width="200dp"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:layout_height="45dp"
+                            />
 
                         <Button
+                            android:layout_marginLeft="50dp"
                             android:layout_width="wrap_content"
                             android:id="@+id/btn_search"
                             android:layout_height="wrap_content"
-                            android:layout_toRightOf="@+id/search"
+                            android:layout_toRightOf="@+id/spinner_search"
                             android:background="@drawable/rect"
                             android:textColor="@android:color/white"
                             android:text="Search" />
@@ -47,7 +56,7 @@
                         android:id="@+id/listView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/search"
+                        android:layout_below="@+id/spinner_search"
                         android:background="#a4d5ed" />
                 </android.support.design.widget.TextInputLayout>
             </android.support.v7.widget.CardView>

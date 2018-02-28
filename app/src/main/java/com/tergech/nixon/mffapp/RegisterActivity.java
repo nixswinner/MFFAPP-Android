@@ -19,16 +19,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG = "RegisterActivity";
-    private static final String URL_FOR_REGISTRATION = "http://192.168.137.1/Api/MFFAPP/public/index.php/api/registerPass";
+    private static final String URL_FOR_REGISTRATION = "http://139.162.42.154/app/meetff/public/index.php/api/registerPass";
     ProgressDialog progressDialog;
 
     private EditText signupInputName, signupInputPhoneNumber, signupInputPassword, signupInputPassAgain,signupInputEmail;
@@ -39,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
+        this.setTitle("Register Now");
         // Progress dialog
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
@@ -72,12 +69,25 @@ public class RegisterActivity extends AppCompatActivity {
 
                                 }
                             }, 3000);*/
-                    registerUser(signupInputName.getText().toString(),
-                            signupInputPhoneNumber.getText().toString(),
-                            signupInputEmail.getText().toString(),
-                            signupInputPassword.getText().toString()
+                  if (signupInputName.getText().toString().isEmpty()&&
+                          signupInputPhoneNumber.getText().toString().isEmpty()&&
+                          signupInputEmail.getText().toString().isEmpty() &&
+                          signupInputPassword.getText().toString().isEmpty()
 
-                    );
+                          )
+                  {
+                      Toast.makeText(RegisterActivity.this,"Error: You must enter all the details to register",Toast.LENGTH_SHORT).show();
+
+                  }else
+                  {
+                      registerUser(signupInputName.getText().toString(),
+                              signupInputPhoneNumber.getText().toString(),
+                              signupInputEmail.getText().toString(),
+                              signupInputPassword.getText().toString()
+
+                      );
+                  }
+
                 }
                 catch (Exception ex)
                 {
@@ -110,30 +120,17 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "Register Response: " + response.toString());
-                Toast.makeText(getApplicationContext(), "Response "+response, Toast.LENGTH_SHORT).show();
                 Toast.makeText(getApplicationContext(), "Hi you have successfully joined us!", Toast.LENGTH_SHORT).show();
                 hideDialog();
-                //Toast.makeText(getApplicationContext(), "Response "+response.toString(), Toast.LENGTH_LONG).show();
-                try {
-                    JSONObject jObj = new JSONObject(response);
-                    boolean error = jObj.getBoolean("error");
-
 
                     // String user = jObj.getJSONObject("user").getString("name");
-                    // Toast.makeText(getApplicationContext(), "Hi " + user +", You are successfully Registered!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Hi you have successfully Registered!", Toast.LENGTH_SHORT).show();
 
-                        /*// Launch login activity
-                        Intent intent = new Intent(
-                                RegisterActivity.this,
-                                LoginActivity.class);
-                        startActivity(intent);
-                        finish();*/
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                   /* Toast.makeText(getApplicationContext(),
-                            "Error Occured Try again"+e, Toast.LENGTH_LONG).show();*/
-                }
+                        // Launch login activity
+                    Intent intent=new Intent(RegisterActivity.this,LoginActivity.class);
+                    intent.putExtra("name","");
+                    startActivity(intent);
+                    RegisterActivity.this.finish();
 
             }
         }, new Response.ErrorListener() {
@@ -142,7 +139,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "Registration Error: " + error.getMessage());
                 Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
+                        "Error Occured Please Try Again", Toast.LENGTH_LONG).show();
                 hideDialog();
             }
         }) {

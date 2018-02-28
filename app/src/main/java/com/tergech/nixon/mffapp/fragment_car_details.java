@@ -27,15 +27,15 @@ import static com.android.volley.VolleyLog.TAG;
 
 public class fragment_car_details extends Fragment {
     //api address to push data
-    private final String  URL_FOR_POST="";
-    private EditText edt_car_type,edt_car_no_plate,edt_car_color ;
+    private final String  URL_FOR_POST="http://139.162.42.154/app/meetff/public/index.php/api/addCarDetails";
+    private EditText edt_car_type,edt_car_no_plate,edt_car_color,edt_pass_no ;
     private Button btnSave;
-    private static String driver_id,car_type,car_no_plate,car_color;
+    private static String driver_id,car_type,car_no_plate,car_color,car_pass_no;
     ProgressDialog progressDialog;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         // Defines the xml file for the login_fragment
-        View view=inflater.inflate(R.layout.fragment, parent, false);
+        View view=inflater.inflate(R.layout.fragment_car_details, parent, false);
 
         // Progress dialog
         progressDialog = new ProgressDialog(getActivity());
@@ -44,6 +44,7 @@ public class fragment_car_details extends Fragment {
         edt_car_type=(EditText)view.findViewById(R.id.input_car_type);
         edt_car_no_plate=(EditText)view.findViewById(R.id.input_car_no_plate);
         edt_car_color=(EditText)view.findViewById(R.id.input_car_color);
+       // edt_pass_no=(EditText)view.findViewById(R.id.input_pass_no);
 
         btnSave=(Button)view.findViewById(R.id.btn_save);
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -55,17 +56,25 @@ public class fragment_car_details extends Fragment {
                 car_type=edt_car_type.getText().toString();
                 car_no_plate=edt_car_no_plate.getText().toString();
                 car_color=edt_car_color.getText().toString();
+               // car_pass_no=edt_pass_no.getText().toString();
 
-                if (car_type!=null && car_no_plate!=null && car_color!=null)
+                if (car_type.isEmpty() && car_no_plate.isEmpty() && car_color.isEmpty())
                 {
                     //method to post data to the server
+                    Toast.makeText(getActivity(),"Please enter all the fields above",Toast.LENGTH_LONG).show();
 
-                    postData();
 
                 }
                 else
                 {
-                    Toast.makeText(getActivity(),"Please enter all the fields above",Toast.LENGTH_LONG).show();
+                    postData();
+                    fragment_main_driver nextFrag= new fragment_main_driver();
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.content, nextFrag,"findThisFragment")
+                            .addToBackStack(null)
+                            .commit();
+                    getActivity().finish();
+
                 }
 
             }
@@ -89,7 +98,7 @@ public class fragment_car_details extends Fragment {
         //SaveSharedPreference.setPhoneNumber(getActivity(),signupInputPhoneNumber.getText().toString());
     }
 
-    private void post_car_details(final String driver_id,  final String car_type,final String car_no_plate, final String car_color) {
+    private void post_car_details(final String driver_id,final String car_type,final String car_no_plate, final String car_color) {
         // Tag used to cancel the request
         String cancel_req_tag = "register";
 
@@ -105,6 +114,7 @@ public class fragment_car_details extends Fragment {
                 try {
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
+                    Log.e("Response "," "+response);
 
                     if (!error) {
                         String user = jObj.getJSONObject("user").getString("name");
@@ -121,6 +131,7 @@ public class fragment_car_details extends Fragment {
                         String errorMsg = jObj.getString("error_msg");
                         Toast.makeText(getActivity(),
                                 errorMsg, Toast.LENGTH_LONG).show();
+                        Log.e("Error "," "+errorMsg);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

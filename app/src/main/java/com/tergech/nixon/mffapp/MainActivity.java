@@ -13,14 +13,25 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.TextView;
+
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 
 public class MainActivity extends AppCompatActivity {
     private Button btnLogin,btnRegister;
+    private YoYo.YoYoString rope;
+    private View mTarget;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        TextView title=(TextView) findViewById(R.id.textView);
+        mTarget = findViewById(R.id.textView);
+        YoYo.with(Techniques.Landing)
+                .duration(4000)
+                .playOn(findViewById(R.id.textView));
 //login
         btnLogin=(Button)findViewById(R.id.btn_login);
         btnLogin.setOnClickListener(new View.OnClickListener() {

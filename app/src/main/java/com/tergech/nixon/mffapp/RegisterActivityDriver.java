@@ -28,7 +28,7 @@ import java.util.Map;
 public class RegisterActivityDriver extends AppCompatActivity {
 
     private static final String TAG = "RegisterActivity";
-    private static final String URL_FOR_REGISTRATION = "http://192.168.137.1/Api/MFFAPP/public/index.php/api/registerDrivers";
+    private static final String URL_FOR_REGISTRATION = "http://139.162.42.154/app/meetff/public/index.php/api/registerDrivers";
     ProgressDialog progressDialog;
 
     private EditText signupInputName, signupInputPhoneNumber, signupInputPassword, signupInputPassAgain,signupInputIDNO,signUpInputEmail;
@@ -39,6 +39,7 @@ public class RegisterActivityDriver extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_driver);
+        this.setTitle("Register Now");
 
         // Progress dialog
         progressDialog = new ProgressDialog(this);
@@ -63,6 +64,20 @@ public class RegisterActivityDriver extends AppCompatActivity {
                 else{
                     Toast.makeText(getApplicationContext(), "Please enable your Internet connection!!", Toast.LENGTH_SHORT).show();
                 }*/
+                if (signupInputName.getText().toString().isEmpty()&&
+                        signupInputPhoneNumber.getText().toString().isEmpty()&&
+                        signUpInputEmail.getText().toString().isEmpty() &&
+                        signupInputPassword.getText().toString().isEmpty() &&
+                        signupInputIDNO.getText().toString().isEmpty()
+
+                        )
+                {
+                    Toast.makeText(RegisterActivityDriver.this,"Error: You must enter all the details to register",Toast.LENGTH_SHORT).show();
+
+                }else
+                {
+
+
                 registerUser(signupInputName.getText().toString(),
                         signupInputPhoneNumber.getText().toString(),
                         signUpInputEmail.getText().toString(),
@@ -70,6 +85,7 @@ public class RegisterActivityDriver extends AppCompatActivity {
                         signupInputPassword.getText().toString()
 
                 );
+                }
 
             }
         });
@@ -95,30 +111,18 @@ public class RegisterActivityDriver extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "Register Response: " + response.toString());
-                Toast.makeText(getApplicationContext(), "Response "+response, Toast.LENGTH_SHORT).show();
-                hideDialog();
-                //Toast.makeText(getApplicationContext(), "Response "+response.toString(), Toast.LENGTH_LONG).show();
-                try {
-                    JSONObject jObj = new JSONObject(response);
-                    boolean error = jObj.getBoolean("error");
 
+                hideDialog();
 
                    // String user = jObj.getJSONObject("user").getString("name");
-                   // Toast.makeText(getApplicationContext(), "Hi " + user +", You are successfully Registered!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Hi you have successfully Registered!", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(RegisterActivityDriver.this,LoginActivity.class);
+                intent.putExtra("name","D");
+                startActivity(intent);
+                RegisterActivityDriver.this.finish();
 
-                        // Launch login activity
-                        Intent intent = new Intent(
-                                RegisterActivityDriver.this,
-                                LoginActivity.class);
-                                intent.putExtra("status","0");
-                        startActivity(intent);
-                        finish();
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(),
-                            "Error Occured Try again"+e, Toast.LENGTH_LONG).show();
-                }
+
 
             }
         }, new Response.ErrorListener() {
@@ -234,6 +238,7 @@ public class RegisterActivityDriver extends AppCompatActivity {
         if (!progressDialog.isShowing())
             progressDialog.show();
     }
+
 
     private void hideDialog() {
         if (progressDialog.isShowing())

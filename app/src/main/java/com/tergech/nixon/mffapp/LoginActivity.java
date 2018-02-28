@@ -33,8 +33,9 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
+    //String baseurl=getString(R.string.base_Url);
     //api url address
-    private static final String URL_FOR_LOGIN = "http://192.168.137.1/Api/MFFAPP/public/index.php/api/loginUser";
+    private static final String URL_FOR_LOGIN = "http://139.162.42.154/app/meetff/public/index.php/api/loginUser";
     ProgressDialog progressDialog;
     private EditText loginInputEmail, loginInputPassword;
     private Button btnlogin;
@@ -55,6 +56,8 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent=getIntent();
         Bundle bundle=intent.getExtras();
         who=bundle.getString("name");
+        this.setTitle("Login");
+
 
 
 
@@ -83,8 +86,15 @@ public class LoginActivity extends AppCompatActivity {
 
                             }
                         }, 3000);*/
-                loginUser(loginInputEmail.getText().toString(),
-                        loginInputPassword.getText().toString());
+               if (loginInputEmail.getText().toString().trim().length()==0 && loginInputPassword.getText().toString().trim().length()==0)
+               {
+                   Toast.makeText(LoginActivity.this,"You must enter an email and password",Toast.LENGTH_SHORT).show();
+               }else
+               {
+                   loginUser(loginInputEmail.getText().toString(),
+                           loginInputPassword.getText().toString());
+               }
+
 
             }
         });
@@ -116,10 +126,12 @@ public class LoginActivity extends AppCompatActivity {
                             case "A Driver":
                                 Intent intent=new Intent(LoginActivity.this,RegisterActivityDriver.class);
                                 startActivity(intent);
+                                LoginActivity.this.finish();
                                 break;
                             case "A Passenger":
                                 Intent intent1=new Intent(LoginActivity.this,RegisterActivity.class);
                                 startActivity(intent1);
+                                LoginActivity.this.finish();
                                 break;
                         }
 
@@ -150,13 +162,15 @@ public class LoginActivity extends AppCompatActivity {
                     JSONArray contacts = jObj.getJSONArray("result");
 
                     // looping through All Contacts
-                    for (int i = 0; i < contacts.length(); i++) {
-                        JSONObject c = contacts.getJSONObject(i);
+                    JSONObject c = contacts.getJSONObject(0);
+                 /*   for (int i = 0; i < contacts.length(); i++) {
 
-                        user_id = c.getString("id");
-                        name = c.getString("name");
 
-                    }
+
+
+                    }*/
+                    user_id = c.getString("id");
+                    name = c.getString("name");
 
                     Toast.makeText(getApplicationContext(),
                             "Welcome "+name, Toast.LENGTH_SHORT).show();
@@ -176,8 +190,26 @@ public class LoginActivity extends AppCompatActivity {
                                SaveSharedPreference.setDriverid(getApplicationContext(),user_id);
                               /* Toast.makeText(getApplicationContext(),
                                        "Driver ID "+user_id, Toast.LENGTH_SHORT).show();*/
-                               Intent intent=new Intent(getApplicationContext(),driver.class);
-                               startActivity(intent);
+                              String car_status= c.getString("car_status");
+                              int carStatus=Integer.parseInt(car_status);
+                              if (carStatus>0)
+                              {
+
+                                  Intent intent=new Intent(getApplicationContext(),driver.class);
+                                  intent.putExtra("carstatus","1");
+                                  startActivity(intent);
+                                  LoginActivity.this.finish();
+                              }
+                              else {
+                                  //add your car
+                                  Intent intent=new Intent(getApplicationContext(),driver.class);
+                                  intent.putExtra("carstatus","0");
+                                  startActivity(intent);
+                                  LoginActivity.this.finish();
+                              }
+
+                              Log.e("Car Status"," "+car_status);
+
                                break;
                            default:
                                //set passenger id
@@ -186,6 +218,7 @@ public class LoginActivity extends AppCompatActivity {
                                        "Pass ID "+user_id, Toast.LENGTH_SHORT).show();*/
                                Intent intent1=new Intent(getApplicationContext(),passenger.class);
                                startActivity(intent1);
+                               LoginActivity.this.finish();
                                break;
                        }
                     Toast.makeText(getApplicationContext(),
@@ -194,7 +227,7 @@ public class LoginActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(),
-                            "Error Loggin Check your details "+e, Toast.LENGTH_LONG).show();
+                            "Error Loggin Check your details ", Toast.LENGTH_LONG).show();
                 }
 
             }

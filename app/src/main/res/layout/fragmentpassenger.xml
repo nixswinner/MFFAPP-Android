@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:gravity="center"
+               android:textStyle="bold"
+               android:text="Meet From Far"
+               android:textSize="40sp"
+               />
+
+       </LinearLayout>
+    </android.support.v7.widget.CardView>
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+       <android.support.v7.widget.CardView
+           android:layout_marginTop="10dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+          <RelativeLayout
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+              <TextView
+                  android:id="@+id/txtt"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:gravity="center"
+                  android:textStyle="bold"
+                  android:text="Find a ride Now"
+                  android:textSize="20sp"
+                  />
+              <Button
+                  android:layout_below="@id/txtt"
+                  android:id="@+id/find_ride"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@drawable/rect"
+                  android:textColor="#fff"
+                  android:text="Find a Ride"
+                  android:layout_marginBottom="20dp"
+                  />
+
+              <TextView
+                  android:id="@+id/txttt"
+                  android:layout_below="@+id/find_ride"
+                  android:layout_width="150dp"
+                  android:textSize="18sp"
+                  android:layout_height="wrap_content"
+                  android:text="My Bookings->"
+                  />
+              <Button
+                  android:id="@+id/myBookings"
+                  android:layout_below="@+id/find_ride"
+                  android:layout_toRightOf="@+id/txttt"
+                  android:layout_width="wrap_content"
+                  android:text="My Bookings"
+                  android:textColor="#fff"
+                  android:layout_height="wrap_content"
+                  android:background="@drawable/rect"
+                  />
+
+
+          </RelativeLayout>
+       </android.support.v7.widget.CardView>
+   </RelativeLayout>
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardBooking"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dip"
+                android:paddingTop="6dip"
+                android:text="Journey:"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/txtrouteName"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dip"
+                android:paddingTop="6dip"
+                android:text="Journey"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_toRightOf="@id/textView10"
+                />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dip"
+                android:paddingTop="6dip"
+                android:text="Cost:"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_below="@id/textView10"
+                />
+            <TextView
+                android:id="@+id/txtCost"
+                android:layout_width="150dp"
+                android:layout_below="@id/txtrouteName"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dip"
+                android:paddingTop="6dip"
+                android:text="Cost"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_toRightOf="@id/textView10"
+                />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dip"
+                android:paddingTop="6dip"
+                android:text="Passenger Capacity:"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
+                android:layout_below="@id/textView11"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/txtPassNo"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dip"
+                android:paddingTop="6dip"
+                android:text="passNo"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_below="@id/txtCost"
+                android:layout_toRightOf="@id/textView12"
+                />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dip"
+                android:paddingTop="6dip"
+                android:text="Departure Time"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_below="@id/textView12"
+                />
+            <TextView
+                android:id="@+id/txtTime"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dip"
+                android:paddingTop="6dip"
+                android:text="time"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_toRightOf="@id/textView13"
+                android:layout_below="@+id/txtPassNo"
+                />
+            <TextView
+                android:layout_marginTop="8dp"
+                android:id="@+id/textView14"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dip"
+                android:paddingTop="6dip"
+                android:text="PickUp Station"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_below="@id/textView13"
+                />
+            <TextView
+
+                android:id="@+id/txtPickup"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dip"
+                android:paddingTop="6dip"
+                android:text=""
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_toRightOf="@id/textView14"
+                android:layout_below="@id/txtTime"
+                />
+            <TextView
+                android:layout_below="@id/txtPickup"
+                android:id="@+id/txtcancle"
+                android:textColor="#ff0c0c"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancle"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_toRightOf="@id/textView14"
+                />
+                 />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

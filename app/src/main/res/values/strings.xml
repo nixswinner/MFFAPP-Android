@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">MFFApp</string>
     <string name="action_settings">Settings</string>
+    <string name="logout">LogOut</string>
+    <string name="base_Url">http://192.168.137.1/Api/MFFAPP/public/index.php/api/</string>
 </resources>
